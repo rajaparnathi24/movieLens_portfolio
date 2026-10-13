@@ -161,7 +161,7 @@ else:
             color="lift",
             color_continuous_scale="Purples"
         )
-        fig_bar.update_layout(get_plotly_layout(dark_mode, height=440))
+        fig_bar.update_layout(get_plotly_layout(dark_mode, height=440, margin_l=195))
         fig_bar.update_yaxes(autorange="reversed")
         fig_bar.update_coloraxes(showscale=False)
         st.plotly_chart(fig_bar, use_container_width=True)

@@ -147,7 +147,7 @@ with col_l1:
         color="PC1",
         color_continuous_scale="Purples"
     )
-    fig_pc1_loadings.update_layout(get_plotly_layout(dark_mode, height=450))
+    fig_pc1_loadings.update_layout(get_plotly_layout(dark_mode, height=450, margin_l=110))
     fig_pc1_loadings.update_coloraxes(showscale=False)
     st.plotly_chart(fig_pc1_loadings, use_container_width=True)
 
@@ -162,6 +162,6 @@ with col_l2:
         color="PC2",
         color_continuous_scale="Tropic"
     )
-    fig_pc2_loadings.update_layout(get_plotly_layout(dark_mode, height=450))
+    fig_pc2_loadings.update_layout(get_plotly_layout(dark_mode, height=450, margin_l=110))
     fig_pc2_loadings.update_coloraxes(showscale=False)
     st.plotly_chart(fig_pc2_loadings, use_container_width=True)

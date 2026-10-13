@@ -556,7 +556,7 @@ def inject_custom_css(dark_mode: bool = False):
     """
     st.markdown(css, unsafe_allow_html=True)
 
-def get_plotly_layout(dark_mode: bool = False, height: int = 420):
+def get_plotly_layout(dark_mode: bool = False, height: int = 420, margin_l: int = 70):
     """Return sleek unified Plotly layout options."""
     bg_color = "#111827" if dark_mode else "#FFFFFF"
     paper_color = "#111827" if dark_mode else "#FFFFFF"
@@ -565,7 +565,7 @@ def get_plotly_layout(dark_mode: bool = False, height: int = 420):
     
     layout = dict(
         height=height,
-        margin=dict(l=40, r=20, t=40, b=40),
+        margin=dict(l=margin_l, r=20, t=40, b=40),
         paper_bgcolor=paper_color,
         plot_bgcolor=bg_color,
         font=dict(
@@ -577,13 +577,15 @@ def get_plotly_layout(dark_mode: bool = False, height: int = 420):
             showgrid=True,
             gridcolor=grid_color,
             zeroline=False,
-            color=text_color
+            color=text_color,
+            automargin=True
         ),
         yaxis=dict(
             showgrid=True,
             gridcolor=grid_color,
             zeroline=False,
-            color=text_color
+            color=text_color,
+            automargin=True
         ),
         hoverlabel=dict(
             bgcolor="#1E293B" if dark_mode else "#0F172A",

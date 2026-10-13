@@ -177,7 +177,7 @@ def render_overview():
             color=top10_genres.values[::-1],
             color_continuous_scale="Purples"
         )
-        fig_g.update_layout(get_plotly_layout(dark_mode, height=360))
+        fig_g.update_layout(get_plotly_layout(dark_mode, height=360, margin_l=110))
         fig_g.update_coloraxes(showscale=False)
         st.plotly_chart(fig_g, use_container_width=True)
 

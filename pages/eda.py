@@ -99,7 +99,7 @@ with col_g1:
         color=genre_data["rating_count"].values[::-1],
         color_continuous_scale="Purples"
     )
-    fig_volume.update_layout(get_plotly_layout(dark_mode, height=480))
+    fig_volume.update_layout(get_plotly_layout(dark_mode, height=480, margin_l=110))
     fig_volume.update_coloraxes(showscale=False)
     st.plotly_chart(fig_volume, use_container_width=True)
 
@@ -114,7 +114,7 @@ with col_g2:
         color_continuous_scale="Teal"
     )
     fig_quality.update_layout(
-        get_plotly_layout(dark_mode, height=480),
+        get_plotly_layout(dark_mode, height=480, margin_l=110),
         xaxis=dict(range=[2.8, 4.3])
     )
     fig_quality.update_coloraxes(showscale=False)
@@ -149,7 +149,7 @@ with col_s1:
         color=five_star_series.values,
         color_continuous_scale="Viridis"
     )
-    fig_5star.update_layout(get_plotly_layout(dark_mode, height=440))
+    fig_5star.update_layout(get_plotly_layout(dark_mode, height=440, margin_l=110))
     fig_5star.update_coloraxes(showscale=False)
     st.plotly_chart(fig_5star, use_container_width=True)
 
@@ -191,7 +191,7 @@ with col_p1:
         color=top_common_pairs.values[::-1],
         color_continuous_scale="Blues"
     )
-    fig_pairs.update_layout(get_plotly_layout(dark_mode, height=420))
+    fig_pairs.update_layout(get_plotly_layout(dark_mode, height=420, margin_l=160))
     fig_pairs.update_coloraxes(showscale=False)
     st.plotly_chart(fig_pairs, use_container_width=True)
 
@@ -207,7 +207,7 @@ with col_p2:
         color_continuous_scale="Teal"
     )
     fig_rel.update_layout(
-        get_plotly_layout(dark_mode, height=420),
+        get_plotly_layout(dark_mode, height=420, margin_l=160),
         xaxis=dict(range=[3.8, 4.25])
     )
     fig_rel.update_coloraxes(showscale=False)

@@ -22,20 +22,29 @@ function getPlotlyLayout(opts = {}) {
   const grid = dark ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.06)';
   const muted = dark ? '#94A3B8' : '#64748B';
 
-  return Object.assign({
+  const defaultMargin = { l: 70, r: 25, t: 44, b: 50 };
+  const customMargin = Object.assign({}, defaultMargin, opts.margin || (opts.extra && opts.extra.margin) || {});
+
+  const mergedXaxis = Object.assign({ showgrid: true, gridcolor: grid, zeroline: false, color: text, automargin: true }, opts.xaxis || {}, (opts.extra && opts.extra.xaxis) || {});
+  const mergedYaxis = Object.assign({ showgrid: true, gridcolor: grid, zeroline: false, color: text, automargin: true }, opts.yaxis || {}, (opts.extra && opts.extra.yaxis) || {});
+
+  const layout = Object.assign({
     height: opts.height || 400,
-    margin: { l: 50, r: 20, t: 44, b: 50 },
     paper_bgcolor: bg,
     plot_bgcolor: bg,
     font: { family: 'Plus Jakarta Sans, sans-serif', color: text, size: 12 },
-    xaxis: Object.assign({ showgrid: true, gridcolor: grid, zeroline: false, color: text }, opts.xaxis || {}),
-    yaxis: Object.assign({ showgrid: true, gridcolor: grid, zeroline: false, color: text }, opts.yaxis || {}),
     hoverlabel: {
       bgcolor: dark ? '#1E293B' : '#0F172A',
       font: { size: 12, family: 'Plus Jakarta Sans, sans-serif', color: '#FFFFFF' }
     },
     coloraxis: { showscale: false }
   }, opts.extra || {});
+
+  layout.margin = customMargin;
+  layout.xaxis = mergedXaxis;
+  layout.yaxis = mergedYaxis;
+
+  return layout;
 }
 
 function getPlotlyConfig() {
@@ -227,6 +236,7 @@ function renderOverview() {
     orientation: 'h',
     marker: { color: gcEntries.map((_, i) => `hsl(${260 - i * 10}, 60%, ${40 + i * 4}%)`).reverse() }
   }], getPlotlyLayout({
+    margin: { l: 110 },
     extra: { title: 'Top 10 Most-Rated Genres (Audience Volume)' },
     xaxis: { title: 'Total Ratings Count' }
   }), getPlotlyConfig());
@@ -426,6 +436,7 @@ function renderExploration() {
     marker: { color: gcEntries.map((_, i) => `hsl(${270 - i * 4}, 55%, ${35 + i * 2}%)`).reverse() }
   }], getPlotlyLayout({
     height: 480,
+    margin: { l: 110 },
     extra: { title: 'Most Rated Movie Genres (Market Volume)' },
     xaxis: { title: 'Total Ratings Count' }
   }), getPlotlyConfig());
@@ -440,6 +451,7 @@ function renderExploration() {
     marker: { color: qaEntries.map((_, i) => `hsl(${170 + i * 3}, 50%, ${30 + i * 2}%)`).reverse() }
   }], getPlotlyLayout({
     height: 480,
+    margin: { l: 110 },
     extra: { title: 'Highest Average Rated Genres (Viewer Acclaim)' },
     xaxis: { title: 'Average Rating (Stars)', range: [2.8, 4.3] }
   }), getPlotlyConfig());
@@ -465,6 +477,7 @@ function renderExploration() {
     marker: { color: fsEntries.map((_, i) => `hsl(${60 + i * 15}, 70%, ${30 + i * 2}%)`) }
   }], getPlotlyLayout({
     height: 440,
+    margin: { l: 110 },
     extra: { title: '5-Star Rating Proportion by Genre' },
     xaxis: { title: '% of Ratings That Are 5 Stars' }
   }), getPlotlyConfig());
@@ -496,6 +509,7 @@ function renderExploration() {
     marker: { color: cp.map((_, i) => `hsl(210, 60%, ${35 + i * 4}%)`).reverse() }
   }], getPlotlyLayout({
     height: 420,
+    margin: { l: 165 },
     extra: { title: 'Top 12 Most Common Movie Genre Combinations' },
     xaxis: { title: 'Number of Movies Produced' }
   }), getPlotlyConfig());
@@ -510,6 +524,7 @@ function renderExploration() {
     marker: { color: rp2.map((_, i) => `hsl(${170 + i * 5}, 50%, ${30 + i * 3}%)`).reverse() }
   }], getPlotlyLayout({
     height: 420,
+    margin: { l: 165 },
     extra: { title: 'Top Rated Genre Pairs (Filtered: ≥ 500 Ratings)' },
     xaxis: { title: 'Average Rating (Stars)', range: [3.8, 4.25] }
   }), getPlotlyConfig());
@@ -588,6 +603,7 @@ function renderAssociation() {
     marker: { color: top10.map((_, i) => `hsl(${260 - i * 8}, 55%, ${35 + i * 3}%)`) }
   }], getPlotlyLayout({
     height: 440,
+    margin: { l: 195 },
     extra: { title: 'Top 10 Association Rules Ranked by Lift' },
     xaxis: { title: 'Lift Value' },
     yaxis: { autorange: 'reversed' }
@@ -683,6 +699,7 @@ function renderPCA() {
     marker: { color: genresSorted1.map(g => loadings[g].pc1 > 0 ? '#6366F1' : '#94A3B8') }
   }], getPlotlyLayout({
     height: 450,
+    margin: { l: 110 },
     extra: { title: 'Genre Contributions to PC1 (Breadth)' },
     xaxis: { title: 'Loading Weight on PC1' }
   }), getPlotlyConfig());
@@ -695,6 +712,7 @@ function renderPCA() {
     marker: { color: genresSorted2.map(g => loadings[g].pc2 > 0 ? '#0EA5E9' : '#F97316') }
   }], getPlotlyLayout({
     height: 450,
+    margin: { l: 110 },
     extra: { title: 'Genre Contributions to PC2 (Spectacle vs. Narrative)' },
     xaxis: { title: 'Loading Weight on PC2' }
   }), getPlotlyConfig());
@@ -723,6 +741,7 @@ function renderAgeGenre() {
     hovertemplate: 'Age: %{y}<br>Genre: %{x}<br>Rating: %{z:.2f}<extra></extra>'
   }], getPlotlyLayout({
     height: 440,
+    margin: { l: 85 },
     extra: { title: 'Average Movie Rating by Age Group and Genre' },
     xaxis: { title: 'Movie Genre' },
     yaxis: { title: 'Age Cohort' }
