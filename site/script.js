@@ -118,6 +118,8 @@ function renderPage(pageId) {
     case 'pca': renderPCA(); break;
     case 'age-genre': renderAgeGenre(); break;
     case 'findings': renderFindings(); break;
+    // case 'use-cases': break; // static content
+    case 'workflow': break; // static content
     case 'methodology': renderMethodology(); break;
     case 'about': break; // static content
   }
